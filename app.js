@@ -27,11 +27,14 @@ var dust = require('dustjs-linkedin');
 var dustHelpers = require('dustjs-helpers');
 var cons = require('consolidate');
 var csrf = require('csurf'); // Importação única do CSRF
-
 var app = express();
 var routes = require('./routes');
+var cons = require('consolidate');
+var helmet = require('helmet'); // 1. Adicione o require
+var app = express();
 
 // all environments
+app.use(helmet());
 app.set('port', process.env.PORT || 3001);
 app.engine('ejs', ejsEngine);
 app.engine('dust', cons.dust);
