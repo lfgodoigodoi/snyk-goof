@@ -33,23 +33,22 @@ exports.index = function (req, res, next) {
     });
 };
 
+exports.admin = async function (req, res, next) {
+  try {
+    // Sanitização e busca segura
+    const username = String(req.body.username);
+    const password = String(req.body.password);
 
-exports.admin = function (req, res, next) {
-  console.log(req.body);
-  User.find({ username: req.body.username, password: req.body.password }, function (err, users) {
-    if (users.length > 0) {
-      return res.render('admin', {
-        title: 'Admin Access Granted',
-        granted: true,
-      });
+    const user = await User.findOne({ username, password });
+
+    if (user) {
+      return res.render('admin', { title: 'Admin Access Granted', granted: true });
     } else {
-      return res.render('admin', {
-        title: 'Admin Access',
-        granted: false,
-      });
+      return res.render('admin', { title: 'Admin Access', granted: false });
     }
-  });
-
+  } catch (err) {
+    return next(err);
+  }
 };
 
 function parse(todo) {
