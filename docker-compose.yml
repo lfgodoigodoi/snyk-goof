@@ -5,6 +5,8 @@ services:
     container_name: goof
     environment:
       - DOCKER=1
+      - ADMIN_PASSWORD=MinhaSenhaSuperSegura123
+      - SECRET_TOKEN_f8ed84e8f41e4146403dd4a6bbcea5e418d23a9
     ports:
       - "3001:3001"
       - "9229:9229"
@@ -14,6 +16,6 @@ services:
       - goof-mongo
   goof-mongo:
     container_name: goof-mongo
-    image: mongo
+    image: mongo:3.6
     ports:
       - "27017:27017"
